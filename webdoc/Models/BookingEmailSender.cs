@@ -8,7 +8,7 @@ namespace webdoc.Models
 {
     public class BookingEmailSender
     {
-        private string MyEmailId = "arpits2305@gmail.com";
+        private string MyEmailId = "email@gmail.com";
         private string MyEmailAppPassword = "wsdqyyvobrbuylbx";
 
         public bool SendMyEmail(string SendTo, string Subject, string Message)
