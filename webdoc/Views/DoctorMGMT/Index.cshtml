@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+@using webdoc.Models
+<div class="row p-4">
+    <h1 class="text-center">@ViewBag.msg</h1>
+    <div class="outer-w3-agile col-xl mr-2">
+        <center>
+            <h1>Appointment</h1>
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #11505e;">
+                <div class="s-l">
+                    <h5>Appointment</h5>
+                </div>
+                <div class="s-r">
+                    <h6>
+                        @{
+                            ConnectionManager con = new ConnectionManager();
+                            if (Session["Useremail"] != null)
+                            {
+                                var em = Session["Useremail"].ToString();
+                                string sql = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + em + "')";
+                                System.Data.DataTable dt = con.getData(sql);
+                                <span>@dt.Rows.Count</span>
+                            }
+                            else {
+                                Response.Write("<script>alert('Login First');window.location.href='/Home/Login';</script>");
+                            }
+                            }
+                        <i class="fa fa-th"></i>
+                    </h6>
+                </div>
+            </div>
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #6B3A6C;">
+                <div class="s-l">
+                    <h5>Total Appointment</h5>
+                </div>
+                <div class="s-r">
+                    <h6>
+                        @{
+                                var em3 = Session["Useremail"].ToString();
+                                string sql4 = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + em3 + "')";
+                                System.Data.DataTable dt4 = con.getData(sql4);
+                                <span>@dt4.Rows.Count</span>
+                        }
+                    </h6>
+                </div>
+            </div>
+
+        </center>
+
+    </div>
+
+
+    <!-- Stats -->
+    <div class="outer-w3-agile col-xl mr-2">
+        <center>
+            <h1>Doctor</h1>
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #11505e;">
+                <div class="s-l">
+                    <h5>Doctors</h5>
+
+                </div>
+                <div class="s-r">
+                    <h6>
+                        @{
+                            string sql2 = "select * from Tbl_Doctor";
+                            System.Data.DataTable dt2 = con.getData(sql2);
+                            <span>@dt2.Rows.Count</span>
+                        }
+                        <i class="fas fa-key"></i>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #6B3A6C;">
+                <div class="s-l">
+                    <h5>FeedBacks</h5>
+
+                </div>
+                <div class="s-r">
+                    <h6>
+                        @{
+                            var em2 = Session["Useremail"].ToString();
+                            string sql3 = "select * from Tbl_Feedback where docname=(select docname from Tbl_Doctor where docemail = '"+em2+"')";
+                            System.Data.DataTable dt3 = con.getData(sql3);
+                            <span>@dt3.Rows.Count</span>
+                        }
+                        <i class="fas fa-comment"></i>
+                    </h6>
+                </div>
+            </div>
+        </center>
+
+    </div>
+    <!--// Stats -->
+    <!-- Pie-chart -->
+
+</div>
+
+
+

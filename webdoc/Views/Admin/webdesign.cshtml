@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "webdesign";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using webdoc.Models
+<h2>webdesign</h2>
+<div class="row">
+    <div class="col-sm-12">
+        <h1 class="text-center">Facilites</h1>
+    </div>
+    @*@{
+        ConnectionManager con = new ConnectionManager();
+        string sql2 = "select * from Tbl_Facility";
+        System.Data.DataTable tb2 = con.getData(sql2);
+        if (tb2.Rows.Count > 0)
+        {
+            for (var i = 0; i < 1; i++)
+            {
+                <div class="card">
+                    <div class="card-img-top">
+                        <img src="~/Content/docimg/@tb2.Rows[i]["Fpic"]">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">@tb2.Rows[i]["FName"]</h4>
+                        <p class="card-text">
+                            @tb2.Rows[i]["Details"]
+                        </p>
+                    </div>
+                </div> 
+            }
+            }
+        }
+    }*@
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 p-5" style="border:1px solid gray;border-radius:10px;">
+        <form method="post" action="/Admin/AdminFacility" enctype="multipart/form-data">
+            <label>Facility:</label> 
+            <input type="text" name="facility" class="form-control"/><br />
+            <label>Facility Details:</label>
+            <textarea name="details" class="form-control"></textarea><br />
+            <label>picture:</label>
+            <input type="file" name="profile" class="form-control" /><br />
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    <div class="col-sm-12"></div>
+</div>

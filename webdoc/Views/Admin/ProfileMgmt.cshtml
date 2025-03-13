@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "ProfileMgmt";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using webdoc.Models
+<style>
+    td {
+        padding: 4% 0%;
+        width:50%;
+        padding-right: 57px;
+    }
+
+        td b {
+            font-size: 20px;
+        }
+
+        td span {
+            font-size: 17px;
+            color: lightslategray;
+        }
+</style>
+
+
+@{
+    ConnectionManager con = new ConnectionManager();
+    if (Session["Username"] != null)
+    {
+        string username = Session["Username"].ToString();
+        string sql = "select* from Tbl_Admin where username='" + username+"'";
+        System.Data.DataTable tb = con.getData(sql);
+        if (tb.Rows.Count == 1)
+        {
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6  card">
+                <h1 class="text-center">Profile</h1>
+                <p class="text-muted fs-5 text-center">Welcome </p>
+                <table style="display: flex; width: -webkit-fill-available; justify-content: center; align-items: center; ">
+                    <tr>
+                        <td colspan="2" class="text-center d-none"><img src="~/Content/UserImg/" width="80" height="80" style="border:1px solid gray;" class="rounded-circle" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>Name:</b></td>
+                        <td> <span>@tb.Rows[0]["username"]</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Password:</b></td>
+                        <td> <span>@tb.Rows[0]["password"]</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Regdate:</b></td>
+                        <td> <span>@tb.Rows[0]["date"]</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+            }
+        }
+       else
+            {
+               Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+            }
+    }

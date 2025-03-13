@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="row border">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 bg-light p-5">
+        <h1 class="text-center mb-5">Registration Form</h1>
+        <form class="p-3 border rounded" method="post" action="/Home/Register"
+              enctype="multipart/form-data">
+            <label>Name:</label>
+            <input type="text" placeholder="Enter Your Name.." class="form-control" name="name" required><br>
+            <label>Father Name:</label>
+            <input type="text" placeholder="Enter Your Father Name.." class="form-control" name="fathername" required><br>
+            <label>Mobile Number:</label>
+            <input type="text" placeholder="Enter Your Mobile Number.." class="form-control" name="mob" required><br/>
+            <label class="form-check-label">Gender:</label>
+            <input type="radio" class="form-check-input ms-2 me-1" name="gender" value="M" /><span>Male</span>
+            <input type="radio" class="form-check-input ms-2 me-1" name="gender" value="F" /><span>Female</span><br />
+            <label>DOB:</label>
+            <input type="date" class="form-control" name="dob" title="enter remember your dob" required><br>
+            <label>Password:</label>
+            <input type="password" placeholder="Enter Your Password.." class="form-control" name="password" required><br>
+            <label>Confrim Password:</label>
+            <input type="password" placeholder="Enter Your Confrim Password.." class="form-control" name="cpassword" required><br>
+            <label>Picture</label>
+            <input type="file" class="form-control" name="file">
+            <label>Address</label>
+            <textarea type="text" class="form-control" placeholder="Enter Your Address.." name="address"></textarea>
+            <label>Captcha:</label>
+            <span style="color: brown;font-size:26px;font-family: cursive;margin-left:30px;">
+                <strike id="ct1">mdc12</strike>
+            </span>
+            <span class="icofont-refresh" style="font-size: 20px;margin-left: 5px; cursor: pointer;"
+                  onclick="showCaptcha()"></span>
+            <input type="hidden" id="hdnct1" name="hdnct1">
+            <br/><br/>
+            <input type="text" placeholder="Enter Captcha Code" id="ct2" class="form-control" name="captcha" required><br />
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+</div>
+

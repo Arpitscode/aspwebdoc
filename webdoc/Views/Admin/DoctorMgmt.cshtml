@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "DoctorMgmt";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using webdoc.Models
+<h2>DoctorMgmt</h2>
+<div class="row">
+    <table class="table">
+        <tr class="bg-dark">
+            <th>Sr.No</th>
+            <th>Doctor Name:</th>
+            <th>Doctor Specialization:</th>
+            <th>Doctor Email:</th>
+            @*<th>Doctor Gender</th>*@
+            <th>Date:</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        @{
+            if (Session["Username"]!=null)
+            {
+                ConnectionManager con = new ConnectionManager();
+                string sql = "select * from Tbl_Doctor";
+                System.Data.DataTable dt = con.getData(sql);
+                if (dt.Rows.Count > 0)
+                {
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@dt.Rows[i]["docname"]</td>
+                        <td>@dt.Rows[i]["docspecial"]</td>
+                        <td>@dt.Rows[i]["docemail"]</td>
+                        @*<td></td>*@
+                        <td>@dt.Rows[i]["regdate"]</td>
+                        <td><a class="btn btn-danger">Delete</a></td>
+                        <td><a class="btn btn-info">Update</a></td>
+                        <td><a class="btn btn-secondary">Display</a></td>
+                    </tr>
+                        }
+                    }
+                }
+           else
+            {
+                Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+
+            }
+            }
+    </table>
+</div>
+

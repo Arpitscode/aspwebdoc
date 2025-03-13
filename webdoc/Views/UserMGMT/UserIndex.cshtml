@@ -1,0 +1,83 @@
+﻿
+
+@{
+    ViewBag.Title = "UserIndex";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using webdoc.Models
+<div class="row p-4">
+    <h1 class="text-center">@ViewBag.msg</h1>
+    <div class="outer-w3-agile col-xl mr-2">
+        <center>
+            <h1>Appointment</h1>
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #11505e;">
+                <div class="s-l">
+                    <h5>Appointment</h5>
+                </div>
+                <div class="s-r">
+                    <h6>
+                        @{
+                            ConnectionManager con = new ConnectionManager();
+                            if (Session["Usermob"] != null)
+                            {
+                                var mobile = Session["Usermob"].ToString();
+                                string sql = "select * from Tbl_Appointment where pmob=" + mobile;
+                                System.Data.DataTable dt = con.getData(sql);
+                            <span>@dt.Rows.Count</span>
+                                }
+                            }
+                        <i class="fa fa-th"></i>
+                    </h6>
+                </div>
+            </div>
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #6B3A6C;">
+                <div class="s-l">
+                    <h5>Doctors</h5>
+                    </div>
+                    <div class="s-r">
+                        <h6>
+                        </h6>
+                    </div>
+                </div>
+
+        </center>
+
+    </div>
+
+
+    <!-- Stats -->
+    <div class="outer-w3-agile col-xl mr-2">
+        <center>
+            <h1>Doctor</h1>
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #11505e;">
+                <div class="s-l">
+                    <h5>Doctors</h5>
+
+                </div>
+                <div class="s-r">
+                    <h6>
+                        @{
+                            string sql2 = "select * from Tbl_Doctor";
+                            System.Data.DataTable dt2 = con.getData(sql2);
+                            <span>@dt2.Rows.Count</span>
+                        }
+                        <i class="fas fa-key"></i>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #6B3A6C;">
+                <div class="s-l">
+                    <h5>Doctors</h5>
+
+                </div>
+
+            </div>
+        </center>
+
+    </div>
+    <!--// Stats -->
+    <!-- Pie-chart -->
+
+</div>
+

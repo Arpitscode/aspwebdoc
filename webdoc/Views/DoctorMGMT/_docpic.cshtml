@@ -1,0 +1,26 @@
+﻿
+
+@using webdoc.Models
+@{
+    if (Session["Useremail"] != null)
+    {
+        ConnectionManager con = new ConnectionManager();
+        var user = Session["Useremail"].ToString();
+        string sql = "select * from Tbl_Doctor where docemail='" + user+"'";
+        System.Data.DataTable dt = con.getData(sql);
+        if (dt.Rows.Count == 1)
+        {
+            for (var i = 0; i < dt.Rows.Count; i++)
+            {
+                @*@dt.Rows[i]["docpic"]*@
+                <img src="~/Content/docimg/@dt.Rows[i]["profile"]" width="80" height="80" style="border-radius:50%;border:1px solid gray;" />
+
+            }
+        }
+    }
+    else
+    {
+        Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+    }
+
+}

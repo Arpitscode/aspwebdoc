@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "DoctorRegister";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="row border">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 bg-light p-5">
+        <h1 class="text-center mb-5">Doctor Register Form</h1> 
+        <form class="p-3 border rounded" method="post" action="/Home/DoctorRegister" enctype="multipart/form-data">
+            <label>Name:</label>
+            <input type="text" placeholder="Enter Your Name:" class="form-control" name="name" required><br />
+            <label>Doctor Specialization:</label>
+            <input type="text" placeholder="Enter Your Specailization.." class="form-control" name="Specailization" required /><br />
+            <label>Email:</label>
+            <input type="email" placeholder="Enter Your Email:" class="form-control" name="email" required><br />
+            <label>Picture:</label>
+            <input type="file" class="form-control" name="file"><br />
+            <label>Password:</label>
+            <input type="password" placeholder="Enter Your Password.." class="form-control" name="password" required /><br />
+            <label>Fees:</label>
+            <input type="number" placeholder="Enter Your Fees.." class="form-control" name="fees" required /><br />
+            <label>Details:</label>
+            <textarea placeholder="Enter Your More Details.." class="form-control" name="details" required></textarea><br />
+            <label>Captcha:</label>
+            <span style="color: brown;font-size:26px;font-family: cursive;margin-left:30px;">
+                <strike id="ct1">mdc12</strike>
+            </span>
+            <span class="icofont-refresh" style="font-size: 20px;margin-left: 5px; cursor: pointer;"
+                  onclick="showCaptcha()"></span>
+            <input class="form-control" type="hidden" name="hdnct1" id="hdnct1">
+            <br><br>
+            <input type="text" placeholder="Enter Captcha Code" name="ct2" id="ct2" class="form-control" required><br />
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+</div>

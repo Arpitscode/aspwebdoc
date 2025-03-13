@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "RegisterMgmt";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using webdoc.Models
+<h2>Register Mgmt</h2>
+<div class="row">
+    <table class="table">
+        <tr class="bg-dark">
+            <th>Sr.No</th>
+            <th>Name</th>
+            <th>Father name</th>
+            <th>Mobile Number</th>
+            <th>Gender</th>
+            <th>RegDate:</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        @{
+            ConnectionManager con = new ConnectionManager();
+            string sql = "select * from Tbl_Register";
+            System.Data.DataTable dt = con.getData(sql);
+            if (dt.Rows.Count > 0)
+            {
+                for (var i = 0; i < dt.Rows.Count; i++)
+                {
+                    <tr>
+                        <td>@(i+1)</td>
+                        <td>@dt.Rows[i]["name"]</td>
+                        <td>@dt.Rows[i]["fname"]</td>
+                        <td>@dt.Rows[i]["mob"]</td>
+                        <td>@dt.Rows[i]["gender"]</td>
+                        <td>@dt.Rows[i]["regdate"]</td>
+                        <td><a class="btn btn-danger">Delete</a></td>
+                        <td><a class="btn btn-info">Update</a></td>
+                        <td><a class="btn btn-secondary">Dispaly</a></td>
+                    </tr>
+                }
+            }
+        }
+    </table>
+</div>
+
+

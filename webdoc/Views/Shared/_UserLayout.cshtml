@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>User Panel</title>
+
+    <!-- Bootstrap Css -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/dash/css/bootstrap.css" rel="stylesheet" />
+    <!-- Bootstrap Css -->
+    <!-- Common Css -->
+    <link href="~/Content/dash/dash.css" rel="stylesheet" type="text/css" media="all" />
+    <!--// Common Css -->
+    <!-- Nav Css -->
+    <link href="~/Content/dash/dash2.css" rel="stylesheet" />
+    <!--// Nav Css -->
+    <!--font awesome 4.0.3-->
+    <!-- Fontawesome Css -->
+    <link href="~/Content/dash/css/fontawesome-all.css" rel="stylesheet" />
+    <!--// Fontawesome Css -->
+    <!-- Required common Js -->
+    <script src='~/Scripts/jquery-3.7.0.js'></script>
+    <!-- //Required common Js -->
+    <script src="~/Scripts/sweetalert.min.js"></script>
+
+    <style>
+        :root {
+            --siteback: #caf0f8;
+            --nav: #03045e;
+            --btnbg: rgb(135 7 247);
+            --acolor: #01d5ff;
+            --headercolor: #03045e;
+            --paracolor: #0077b6;
+            --counternum: rgb(24, 161, 24);
+            --cardbg: linear-gradient(#00b4d8,#0077b6);
+            --cardtext: #e0fbfc;
+            --footbg: #242561;
+            --dashsidebar: #7de2f7e1;
+        }
+
+        .admincont .row {
+            overflow-y: scroll;
+            height: 77vh;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            background: #d9d7d7;
+            border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-track {
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #45595b;
+            border-radius: 50px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #ff6c00;
+            }
+
+        .admincont .row .formcont {
+            border-radius: 15px;
+            border: 2px solid #d9d7d7;
+            box-shadow: 0px 0px 12px #d9d7d7;
+        }
+
+            .admincont .row .formcont form {
+                overflow-y: scroll;
+                height: 55vh;
+            }
+
+        .admincont .unscroll {
+            overflow: unset !important;
+            height: 70vh;
+        }
+
+        .fas {
+            color: #11505e !important;
+        }
+    </style>
+</head>
+<body style="background: var(--siteback);">
+
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header d-flex justify-content-center">
+                <h1>
+                    <a href=""><a class="navbar-brand hvr-buzz " href="#"><img src="~/Content/Images/logo.png" class="w-100"></a></a>
+                </h1>
+                <span><a class="navbar-brand hvr-buzz" href="#"><img src="~/Content/Images/logo.png" style="width: 100px;"></a></span>
+            </div>
+            <div class="profile-bg">
+                @*<i class="far fa-user" style="font-size: 50px;"></i>*@
+                @Html.Partial("_userpic")
+            </div>
+            <ul class="list-unstyled components"> 
+                <li>
+                    <a href="/UserMGMT/UserIndex">
+                        <i class="fas fa-th-large"></i><b> Dashboard</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="/UserMGMT/DoctorMgmt">
+                        <i class="fas fa-search-plus"></i><b>Doctor Details</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="/UserMGMT/BookAppointment">
+                        <i class="fas fa-history"></i><b>Book Appointment</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="/UserMGMT/AppointmentMgmt">
+                        <i class="fas fa-address-book"></i><b>Appointment Details</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="/UserMGMT/PaymentMgmt">
+                        <i class="fas fa-money-bill-alt"></i><b>Payment Details</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="/UserMGMT/ProfileMgmt">
+                        <i class="fas fa-user-secret"></i><b>Profile</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="/UserMGMT/ChangePassword">
+                        <i class="fas fa-key"></i><b>Change Password</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="/UserMGMT/Logout">
+                        <i class="fas fa-sign-out-alt"></i><b>LogOut</b>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Page Content Holder -->
+        <div id="content">
+            <!-- top-bar -->
+            <nav class="navbar navbar-default mb-2">
+                <div class="container-fluid">
+
+                    <div class="navbar-header">
+                        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" style="background:#dcf9ff; color: black;">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                    <!--// Search-from -->
+                    <ul class="top-icons-agileits-w3layouts float-right">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user" style="font-size:25px"></i>
+                            </a>
+                            <div class="dropdown-menu drop-3" aria-labelledby="navbarDropdown">
+                                @Html.Partial("_UserProfile")
+                                <a href="/UserMGMT/ProfileMgmt" class="dropdown-item mt-3">
+                                    <h4>
+                                        <i class="fas fa-user mr-3"></i>My Profile
+                                    </h4>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/UserMGMT/Logout"><i class="fas fa-sign-out-alt mr-4"></i>Logout</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="/UserMGMT/Logout"><i class="fas fa-sign-out-alt" style="font-size:25px"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!--// top-bar -->
+
+
+            <div class="container-fluid admincont">
+
+
+                <!--// top-bar -->
+               @RenderBody()
+
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="copyright-w3layouts py-xl-3 py-2 mt-1 text-center" style=" position: fixed; bottom: 0px; width: -webkit-fill-available;">
+                <p>
+                    © 2025 AS . All Rights Reserved | Design by Arpit Sahu
+                    <a href="">Webdoc</a>
+                </p>
+            </div>
+            <!--// Copyright -->
+        </div>
+    </div>
+
+
+
+    
+    <!-- Sidebar-nav Js -->
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+
+    <!-- Js for bootstrap working-->
+    <script src="~/Content/dash/js/bootstrap.min.js"></script>
+    <!-- //Js for bootstrap working -->
+
+</body>
+
+</html>

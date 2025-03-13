@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "BookAppointment";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using webdoc.Models
+<script>
+    $(document).ready(function () {
+        $("#btn").click(function () {
+            var pname = $("#pname").val();
+            var pemail = $("#pemail").val();
+            var pgender = $("input[name='pgender']:checked").val();
+            var doctor = $("#doctor").val();
+            var appoint = $("#apdatetime").val();
+            var pissue = $("#pissues").val();
+            var formdata = { n: pname, em: pemail, gen: pgender, doc: doctor, pt: appoint, iss: pissue };
+            $.getJSON("/UserMGMT/Appointment",formdata,function (data) {
+                swal({
+                    title: "Appointment!",
+                    text: data,
+                    icon: "success",
+                }).then(function () {
+                    $("#pname").val("");
+                    $("#pemail").val("");
+                    $("input[name='pgender']:checked").val("");
+                    $("#doctor").val("");
+                    $("#apdatetime").val("");
+                    $("#pissues").val("");
+                    window.location.href = '/UserMGMT/AppointmentMgmt';
+                })
+                 
+            })
+        })
+    });
+</script>
+<div class="row border">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 bg-light p-5">
+        <h1 class="text-center mb-5">Book Appointment</h1>
+        @*<div class="" method="post" action="/Home/Appointment">*@
+    <div class="p-3 border rounded">
+        <label>Patient Name:</label>
+        <input type="text" placeholder="Enter Your Name.." class="form-control" id="pname" required /><br />
+        <label>Patient Email:</label>
+        <input type="email" placeholder="Enter Your Email.." class="form-control" id="pemail" require /><br />
+
+        <label class="form-check-label">Gender:</label>
+        <input type="radio" class="form-check-input ms-2 me-1" name="pgender" value="M" style="position:unset" /><span>Male</span>
+        <input type="radio" class="form-check-input ms-2 me-1" name="pgender" value="F" style="position:unset" /><span>Female</span><br />
+        <label>Doctor Name:</label>
+        <select id="doctor" class="form-select">
+            <option>--- Select Doctor ---</option>
+            @{ 
+                ConnectionManager con = new ConnectionManager();
+                string sql = "select docname from Tbl_Doctor";
+                System.Data.DataTable dt = con.getData(sql);
+if (dt.Rows.Count > 0)
+            {
+                for(var i = 0; i < dt.Rows.Count; i++)
+                {
+                    <option>@dt.Rows[i]["docname"]</option>
+                }
+            }
+            }
+        </select><br />
+        <label>Appointment Date-Time:</label>
+        <input type="datetime-local" id="apdatetime" class="form-control" /><br />
+        <label>Health Issues:</label>
+        <textarea placeholder="Enter Your Health Issues
+.." class="form-control" id="pissues" required></textarea><br />
+        <button class="btn btn-success" id="btn">Book</button>
+    </div>
+    </div>
+</div>
+<script>
+    // Get current date and time
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Month is 0-based, so add 1
+    const day = String(today.getDate()).padStart(2, '0');
+    const hours = String(today.getHours()).padStart(2, '0');
+    const minutes = String(today.getMinutes()).padStart(2, '0');
+
+    // Format current date and time as YYYY-MM-DDTHH:mm
+    const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+    // Set the min value for the input field
+    document.getElementById('apdatetime').setAttribute('min', formattedDateTime);
+</script>
+
+
+

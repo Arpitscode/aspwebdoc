@@ -1,0 +1,25 @@
+﻿@using webdoc.Models
+@{
+    if (Session["Username"] != null)
+    {
+        ConnectionManager con = new ConnectionManager();
+        string username = Session["Username"].ToString();
+        string sql = "select * from Tbl_Admin where username='" + username+"'";
+        System.Data.DataTable dt = con.getData(sql);
+        if (dt.Rows.Count == 1)
+        {
+            <div class="profile d-flex mr-o">
+
+                <div class="profile-r align-self-center">
+                    <h3 class="sub-title-w3-agileits">@dt.Rows[0]["username"]</h3>
+                    <a href=""></a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+    }
+
+}

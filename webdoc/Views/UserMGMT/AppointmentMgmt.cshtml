@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "AppointmentMgmt";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@*<script>
+    $(document).ready(function () {
+        $.getJSON("/UserMGMT/getdata", function (data) {
+            var tb = "";
+            for (var i = 0; i < data.length; i++) {
+                tb = "<tr><td>" + (i + 1) + "</td><td>" + data[i].pname + "</td><td>" + data[i].pemail + "</td><td>" + data[i].pmob + "</td><td>" + data[i].pgender + "</td><td>" + "</td><td>" + data[i].docname + "</td><td>" + data[i].apttime + "</td><td>" + data[i].issues + "</td><td>" + data[i].applydate + "</td><td><a class='btn btn- danger'>Cancel</a></td> <td><a class='btn btn-info'>Update</a></td></tr>";
+            }
+            $("#tbody").html(tb);
+        })
+    })
+</script>*@
+<script>
+    $(document).ready(function () {
+        $(".tbody").on("click", ".cancel", function () {
+            var id = $(this).attr("id");
+            var n = id.substr(id.lastIndexOf('-') + 1);
+            $.getJSON("/UserMGMT/CancelAppointment", { id: n }, function (data) {
+                swal({
+                    title: "Deleted!",
+                    text:data,
+                    icon: "success",
+                    dangerMode: true,
+                }).then(function () {
+                    window.location.href = '/UserMGMT/AppointmentMgmt';
+                })
+            })
+        })
+    })
+</script>
+@using webdoc.Models
+<h2>AppointmentMgmt</h2>
+<div class="row">
+    <table class="table border">
+        <thead>
+            <tr class="bg-black">
+                <th>Sr.No.</th>
+                <th>Patient Name</th>
+                <th>Gender</th>
+                <th>Doctor Name</th>
+                <th>Appointment Time</th>
+                <th>Health Issues</th>
+                <th>Apply Date</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+            @{ 
+                if (Session["Usermob"] != null)
+                {
+                    ConnectionManager con = new ConnectionManager();
+                    string mobile = Session["Usermob"].ToString();
+                    string sql = "select * from Tbl_Appointment where pmob=" + mobile;
+                    System.Data.DataTable dt = con.getData(sql);
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@dt.Rows[i]["pname"]</td>
+                            <td>@dt.Rows[i]["pgender"]</td>
+                            <td>@dt.Rows[i]["docname"]</td>
+                            <td>@dt.Rows[i]["apttime"]</td>
+                            <td>@dt.Rows[i]["issues"]</td>
+                            <td>@dt.Rows[i]["applydate"]</td>
+                            <td><a class="btn btn-danger cancel" id="cn-@dt.Rows[i]["pid"]">Cancel</a></td>
+                            @*<td><a class="btn btn-info">Update</a></td>*@
+                            @*<td><a class="btn btn-secondary">Display</a></td>*@
+                        </tr>
+                        }
+                    }
+            else
+            {
+                Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+
+            }
+                }
+        </tbody>
+    </table>
+</div>

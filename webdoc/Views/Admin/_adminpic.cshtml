@@ -1,0 +1,25 @@
+﻿
+
+@using webdoc.Models
+@{
+    if (Session["Username"] != null)
+    {
+        ConnectionManager con = new ConnectionManager();
+        string username = Session["Username"].ToString();
+        string sql = "select * from Tbl_Admin where username='" + username + "'";
+        System.Data.DataTable dt = con.getData(sql);
+        if (dt.Rows.Count == 1)
+        {
+            for (var i = 0; i < dt.Rows.Count; i++)
+            {
+                @*@dt.Rows[i]["pic"]*@
+                <i class='fas fa-user' style='font-size:25px'></i>
+            }
+        }
+    }
+    else
+    {
+        Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+    }
+
+}

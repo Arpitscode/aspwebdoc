@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "AppointmentSchedules";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        $(".tbody").on("click", ".cancel", function () {
+            var id = $(this).attr("id");
+            var n = id.substr(id.lastIndexOf('-') + 1);
+            $.getJSON("/DoctorMGMT/CancelAppointment", { id: n }, function (data) {
+                swal({
+                    title: "Deleted!",
+                    text: data,
+                    icon: "success",
+                    dangerMode: true,
+                }).then(function () {
+                    window.location.href = '/DoctorMGMT/AppointmentSchedules';
+                })
+            })
+        })
+    });
+</script>
+@using webdoc.Models
+<h2>Appointment Schedules</h2>
+<div class="row">
+    <table class="table border">
+        <thead>
+            <tr class="bg-black">
+                <th>Sr.No.</th>
+                <th>Patient Name</th>
+                <th>Gender</th>
+                <th>Appointment Time</th>
+                <th>Mobile Number</th>
+                <th>Health Issues</th>
+                <th>Apply Date</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+            @{
+                ConnectionManager con = new ConnectionManager();
+                string docem = Session["Useremail"].ToString();
+                string sql = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='"+docem+"')";
+                System.Data.DataTable dt = con.getData(sql);
+                for (var i = 0; i < dt.Rows.Count; i++)
+                {
+                    <tr>
+                        <td>@(i+1)</td>
+                        <td>@dt.Rows[i]["pname"]</td>
+                        <td>@dt.Rows[i]["pgender"]</td>
+                        <td>@dt.Rows[i]["apttime"]</td>
+                        <td>@dt.Rows[i]["pmob"]</td>
+                        <td>@dt.Rows[i]["issues"]</td>
+                        <td>@dt.Rows[i]["applydate"]</td>
+                        <td><a class="btn btn-danger cancel" id="cn-@dt.Rows[i]["pid"]">Cancel</a></td>
+                        <td><a class="btn btn-info">Update</a></td>
+                        <td><a class="btn btn-secondary">Display</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+

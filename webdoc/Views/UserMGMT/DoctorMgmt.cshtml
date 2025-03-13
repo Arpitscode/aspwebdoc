@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "DoctorMgmt";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using webdoc.Models
+<h2>DoctorMgmt</h2>
+<style>
+    .card {
+        position: relative;
+        width: 280px;
+        height: 325px;
+        padding: 56px 0px;
+        margin:6% 2%;
+        text-align: center;
+    }
+        .card img {
+            position: absolute;
+            width: 125px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #cbcbcb;
+            top: -14%;
+            left: 29%;
+        }
+    .container {
+        overflow-y: scroll;
+        height: 77vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<div class="container">
+    @{
+        if (Session["Usermob"] != null)
+        {
+            ConnectionManager con = new ConnectionManager();
+            string sql = "select * from Tbl_Doctor";
+            System.Data.DataTable tb = con.getData(sql);
+            if (tb.Rows.Count > 0)
+            {
+                for (var i = 0; i < tb.Rows.Count; i++)
+                {
+                    <div class="card">
+                        <div class="card-img-top">
+                            <img src="~/Content/docimg/@tb.Rows[i]["profile"]">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title fs-5">@tb.Rows[i]["docname"] (@tb.Rows[i]["docspecial"])</h4>
+                            <h5 class="text-muted" style="font-size:13px;">@tb.Rows[i]["docemail"]</h5>
+                            <p class="card-text fs-6 pb-3">
+                                @tb.Rows[i]["docdetails"]
+                            </p>
+                            <p class="card-text pt-0 pb-2 mt-0"><b>@tb.Rows[i]["docfess"]</b>Rs.</p>
+                            <button class="btn btn-success">Book Now</button>
+                        </div>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+        }
+    }
+</div>

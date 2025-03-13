@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Feedbacks";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using webdoc.Models
+
+<h2 class="text-center">FeedBack</h2>
+<div class="row">
+    <table class="table border">
+        <thead>
+            <tr class="bg-black">
+                <th>Sr.No.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>File</th>
+                <th>Doctor Name</th>
+                <th>feedback</th>
+                <th>feed Date</th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+            @{
+                ConnectionManager con = new ConnectionManager();
+                if (Session["Username"] != null)
+                {
+                    string docem = Session["Username"].ToString();
+                    string sql = "select * from Tbl_Feedback";
+                    System.Data.DataTable dt = con.getData(sql);
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@dt.Rows[i]["name"]</td>
+                        <td>@dt.Rows[i]["email"]</td>
+                        <td><img src="~/Content/Feedbackimg/@dt.Rows[i]["file"]" width="50" height="50" /></td>
+                        <td>@dt.Rows[i]["docname"]</td>
+                        <td>@dt.Rows[i]["feedback"]</td>
+                        <td>@dt.Rows[i]["feeddate"]</td>
+                    </tr>
+                        }
+                    }
+            else
+            {
+                Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+
+            }
+                }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+

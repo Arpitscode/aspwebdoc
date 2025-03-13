@@ -1,0 +1,24 @@
+﻿@using webdoc.Models
+@{
+    if (Session["Useremail"] != null)
+    {
+        ConnectionManager con = new ConnectionManager();
+        var user = Session["Useremail"].ToString();
+        string sql = "select * from Tbl_Doctor where docemail='" +user+"'";
+        System.Data.DataTable dt = con.getData(sql);
+        if (dt.Rows.Count == 1)
+        {
+        <div class="profile d-flex mr-o">
+
+            <div class="profile-r align-self-center">
+                <h3 class="sub-title-w3-agileits">@dt.Rows[0]["docname"] (@dt.Rows[0]["docspecial"])</h3>
+                <a href="mailto:@dt.Rows[0]["docemail"]">@dt.Rows[0]["docemail"]</a>
+            </div>
+        </div>
+        }
+    }
+    else
+        {
+          Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+    }
+}

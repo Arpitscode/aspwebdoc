@@ -1,0 +1,24 @@
+﻿@using webdoc.Models
+@{
+    if (Session["Usermob"] != null)
+    {
+        ConnectionManager con = new ConnectionManager();
+        var mobile = Session["Usermob"].ToString();
+        string sql = "select * from Tbl_Register where mob=" + mobile;
+        System.Data.DataTable dt = con.getData(sql);
+        if (dt.Rows.Count == 1)
+        {
+            <div class="profile d-flex mr-o">
+
+                <div class="profile-r align-self-center">
+                    <h3 class="sub-title-w3-agileits">@dt.Rows[0]["name"]</h3>
+                    <a href="tel:+91 @dt.Rows[0]["mob"]">@dt.Rows[0]["mob"]</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+    }
+}

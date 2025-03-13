@@ -1,0 +1,23 @@
+﻿
+@using webdoc.Models
+@{
+    if (Session["Usermob"] != null)
+    {
+        ConnectionManager con = new ConnectionManager();
+        var mobile = Session["Usermob"].ToString();
+        string sql = "select * from Tbl_Register where mob=" + mobile;
+        System.Data.DataTable dt = con.getData(sql);
+        if (dt.Rows.Count == 1)
+        {
+            for (var i = 0; i < dt.Rows.Count; i++)
+            {
+            <img src="~/Content/UserImg/@dt.Rows[i]["pic"]" width="80" height="80" style="border-radius:50%;border:1px solid gray;"/>
+
+            }
+        }
+    }
+    else
+    {
+        Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+    }
+}

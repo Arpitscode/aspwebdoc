@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "ProfileMgmt";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using webdoc.Models
+<style>
+    td {
+        padding: 3% 0%;
+        width: 0%;
+    }
+
+        td b {
+            font-size: 17px;
+        }
+
+        td input {
+            font-size: 17px;
+            color: lightslategray;
+        }
+</style>
+
+
+@{
+    if (Session["Usermob"] != null)
+    {
+        ConnectionManager con = new ConnectionManager();
+        string mobile = Session["Usermob"].ToString();
+        string sql = "select* from Tbl_Register where mob=" + mobile;
+        System.Data.DataTable tb = con.getData(sql);
+        if (tb.Rows.Count == 1)
+        {
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6  card">
+                    <h1 class="text-center">Profile</h1>
+                    <p class="text-muted fs-5 text-center">Welcome </p>
+                    <form method="post" action="/UserMGMT/UpdateProfile?mob=@tb.Rows[0]["mob"]" enctype="multipart/form-data">
+                        <table style="display: flex; width: -webkit-fill-available; justify-content: center; align-items: center; ">
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    <img src="~/Content/UserImg/@tb.Rows[0]["pic"]" id="img" width="80" height="80" style="border:1px solid gray;" class="rounded-circle" /><br />
+                                    <p id="filename"></p>
+                                    <input type="file" name="pic" id="Uppic" class="form-control d-none" readonly />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Name:</b></td>
+                                <td> <input type="text" class="form-control" name="name" value="@tb.Rows[0]["name"]" readonly /></td>
+                            </tr>
+                            <tr>
+                                <td><b>FatheName:</b></td>
+                                <td> <input type="text" class="form-control" name="fname" value="@tb.Rows[0]["fname"]" readonly /></td>
+                            </tr>
+                            <tr>
+                                <td><b>Mobile Number:</b></td>
+                                <td><span class="form-control">@tb.Rows[0]["mob"]</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Gender:</b></td>
+                                <td> <input type="text" class="form-control" name="gender" value="@tb.Rows[0]["gender"]" readonly /></td>
+                            </tr>
+                            <tr>
+                                <td><b>Date Of Birth:</b></td>
+                                <td> <input type="date" class="form-control" name="dob" value="@tb.Rows[0]["dob"]" readonly /></td>
+                            </tr>
+                            <tr>
+                                <td><b>Address:</b></td>
+                                <td> <input type="text" class="form-control" name="address" value="@tb.Rows[0]["address"]" readonly /></td>
+                            </tr>
+                            <tr>
+                                <td><b>Regdate:</b></td>
+                                <td> <span class="form-control">@tb.Rows[0]["regdate"]</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><button type="submit" class="btn btn-primary px-3 m-auto" id="edit">Update</button></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+    }
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#edit").hide();
+        $("input").click(function () {
+            $(this).prop("readonly", false);
+            $(this).css("color", "red");
+            $(this).blur(function () {
+                $(this).css("background-color", "lightskyblue")
+                $("#edit").show();
+            })
+        })
+        $("#img").click(function () {
+            $("#Uppic").trigger("click");
+        })
+        $("#Uppic").change(function (e) {
+            const img = e.target.files[0].name;
+            $("#img").hide();
+            $("#filename").text(img);
+            $("#edit").show();
+
+        })
+    })
+</script>
+

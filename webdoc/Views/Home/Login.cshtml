@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="row border">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 bg-light p-5">
+        <h1 class="text-center mb-5">Login Form</h1>
+        <form id="form" class="p-3 border rounded" method="post" action="/Home/LogIn"
+              enctype="multipart/form-data">
+            <label>Panel:</label>
+            <select name="panel" class="form-control">
+                <option>User Panel</option>
+                <option>Doctor Panel</option>
+                <option>Admin Panel</option>
+            </select><br>
+            @{
+                        HttpCookie cookie = Request.Cookies["Webdoc"];
+                        if (cookie != null)
+                        {
+                    <label>UserName:</label>
+                    <input type="text" placeholder="Enter Your UserName.." class="form-control" name="username" value="@cookie.Values["Username"]" required><br>    
+                    <label>Password:</label>
+                    <input type="password" placeholder="Enter Your Password.." class="form-control" name="password" value="@cookie.Values["password"]" required><br>
+                }
+                else
+                {
+                    <label>UserName:</label>
+                    <input type="text" placeholder="Enter Your UserName.." class="form-control" name="username" required><br>
+                    <label>Password:</label>
+                    <input type="password" placeholder="Enter Your Password.." class="form-control" name="password" required><br>
+                }
+            }
+
+            <label>Captcha:</label>
+            <span style="color: brown;font-size:26px;font-family: cursive;margin-left:30px;">
+                <strike id="ct1">mdc12</strike>
+            </span>
+            <span class="icofont-refresh" style="font-size: 20px;margin-left: 5px; cursor: pointer;"
+                  onclick="showCaptcha()"></span>
+            <input type="hidden" id="hdnct1" name="hdnct1">
+            <br /><br />
+            <input type="text" placeholder="Enter Captcha Code" id="ct2" class="form-control" name="ct2" required><br />
+            @*<div id="sec">
+            <label>Otp:</label><br />
+            <input id="otp" class="form-control" placeholder="Enter Your Otp:" /><br />
+            <span onclick="return location.reload(true)" class="text-muted fs-6">Send?<span class="icofont-refresh"></span></span><br />
+            <button type="button" class="btn btn-success" id="submit">Verify</button>
+        </div>*@
+            <input type="checkbox" name="check" class="form-check-inline" value="true"/><label>Remember me</label><br />
+            <button type="submit" class="btn btn-success" id="btn">Submit</button>
+        </form>
+    </div>
+</div>
+<script>
+    //$(document).ready(function () {
+    //    $("#sec").css("display","none")
+    //    $("#btn").click(function () {
+    //        $("#sec").css("display", "block");
+    //        $("#btn").css("display", "none");
+    //        var str = "12345678901234565432";
+    //        let code = "";
+    //        for (var i = 0; i < 6; i++) {
+    //            code = code + str[Math.floor(Math.random() * str.length)]
+    //        }
+    //        $("#submit").click(function () {
+    //            if (code == $("#otp").text()) {
+    //                $("#form").submit();
+    //            }
+    //        });
+    //    })
+    //}); 
+</script>
+
+
+

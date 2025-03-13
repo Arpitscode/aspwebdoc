@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/bootcss/animate.min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/bootcss/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/bootcss/hover-min.css">
+    <link rel="stylesheet" href="~/Content/bootcss/aos.css">
+    <link rel="stylesheet" href="~/Content/bootcss/style.css">
+    <link rel="stylesheet" href="~/Content/icofont/icofont.min.css">
+
+    <script src="~/Content/bootjs/jquery.min.js"></script>
+    <script src="~/Content/bootjs/jquery.waypoints.min.js"></script>
+    <script src="~/Content/bootjs/counterup.min.js"></script>
+    <script src="~/Content/bootjs/owl.carousel.min.js"></script>
+    <script src="~/Content/bootjs/aos.js"></script>
+    <script src="~/Content/bootjs/main.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/jquery-3.7.0.js"></script>
+    <!---->
+    <link rel="stylesheet" href="~/Content/style/testimonial.css">
+    <link rel="stylesheet" href="~/Content/style/hover.css">
+    <link rel="stylesheet" href="~/Content/style/animation.css">
+    <script src="~/Content/script/script.js"></script>
+    <script src="~/Content/script/menutogglleicon.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <link href="~/Content/style/style.css" rel="stylesheet">
+</head>
+<style>
+    :root {
+        --siteback: #caf0f8;
+        --nav: #4baddd;
+        --btnbg: rgb(135 7 247);
+        --acolor: #ffffff;
+        --headercolor: #03045e;
+        --paracolor: #0077b6;
+        --counternum: rgb(24, 161, 24);
+        --cardbg: linear-gradient(#6be6ff, #67caff);
+        --cardtext: #e0fbfc;
+        --footbg: #242561;
+    }
+</style>
+<body>
+    <div class="container-fluid">
+        <!--  ----- ----navbar ---------- ------- -->
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-light ps-5 sticky-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand hvr-buzz" href="#"><img src="~/Content/Images/logo.png"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+                            aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="menu">
+                        <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item me-4">
+                                <a class="nav-link active hvr-underline-from-center" aria-current="page" href="/Home/Index">Home</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link hvr-underline-from-center" href="/Home/About">About</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link hvr-underline-from-center" href="/Home/Feedback">Feedback</a>
+                            </li>
+                            <li class="nav-item me-4">
+                                <a class="nav-link hvr-underline-from-center" href="/Home/Enquiry">Enquiry</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle hvr-underline-from-center" href="#"
+                                   id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Gallery
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item hvr-underline-from-center" href="#">Image Gallery</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item hvr-underline-from-center" href="#">Video Gallery</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle hvr-underline-from-center" href="#"
+                                   id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Settings
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item hvr-underline-from-center" href="/Home/LogIn">LogIn</a>
+                                    </li>                                    
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item hvr-underline-from-center" href="/Home/Register">Register Now</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="d-flex me-5">
+                            <a class="btn btn-primary hvr-pulse px-5" href="tel: +91 0000000000">Call Now</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        @RenderBody()
+        <div class="row shape"></div>
+        <footer class="footer row">
+            <div class="footer-col col-12 col-md-3" data-aos="fade-right" data-bs-interval="3000">
+                <ul>
+                    <h4>company</h4>
+                    <li><a href="#">about us</a></li>
+                    <li><a href="#">our services</a></li>
+                    <li><a href="#">privacy policy</a></li>
+                    <li><a href="#">affiliate program</a></li>
+                </ul>
+            </div>
+            <div class="footer-col col-12 col-md-3" data-aos="fade-in" data-bs-interval="7000">
+                <ul>
+                    <h4>get help</h4>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">shipping</a></li>
+                    <li><a href="#">returns</a></li>
+                    <li><a href="#">order status</a></li>
+                    <li><a href="#">payment options</a></li>
+                </ul>
+            </div>
+            <div class="footer-col col-12 col-md-3" data-aos="fade-in" data-bs-interval="7000">
+                <ul>
+                    <h4>online shop</h4>
+                    <li><a href="#">watch</a></li>
+                    <li><a href="#">bag</a></li>
+                    <li><a href="#">shoes</a></li>
+                    <li><a href="/Home/DoctorRegister">Doctor Registration</a></li>
+                </ul>
+            </div>
+            <div class="footer-col col-12 col-md-3">
+                <ul class="social-links" data-aos="fade-up" data-bs-interval="3000">
+                    <h4>Link</h4>
+                    <!-- <li><a href="#">watch</a></li>
+                <li><a href="#">bag</a></li>
+                <li><a href="#">shoes</a></li>
+                <li><a href="#">dress</a></li> -->
+                </ul>
+            </div>
+            <hr>
+            <div class="row">
+                <h4 class="text-center mb-3" data-aos="fade-up">Designed By Arpit Sahu</h4>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

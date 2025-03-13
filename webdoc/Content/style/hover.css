@@ -1,0 +1,20 @@
+:root{
+    --ahvrcolor:#caf0f8;
+}
+.navbar .nav-link:hover,.dropdown-item:hover{
+    color: var(--ahvrcolor)!important;
+    background: none;
+}
+.hvr-underline-from-center:before{
+    background:var(--ahvrcolor) !important;
+    border-radius: 100px;
+    height: 3px !important;
+}
+.navbar .btn:hover,.text-slider .btn:hover{
+    background: rgb(1, 160, 1) !important;
+    border: none;
+}
+.footer-col ul li a:hover {
+    color: var(--ahvrcolor);
+    padding-left: 8px;
+}

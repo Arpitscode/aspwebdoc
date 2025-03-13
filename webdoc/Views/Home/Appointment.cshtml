@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Appointment";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="row border">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 bg-light p-5">
+        <h1 class="text-center mb-5">Book Appointment</h1>
+        <form class="p-3 border rounded" method="post" action="/Home/Appointment">
+            <label>Patient Name:</label>
+            <input type="text" placeholder="Enter Your Name.." class="form-control" name="pname" required /><br />
+            <label>Patient Email:</label>
+            <input type="email" placeholder="Enter Your Email.." class="form-control" name="pemail" require /><br />
+
+            <label class="form-check-label">Gender:</label>
+            <input type="radio" class="form-check-input ms-2 me-1" name="pgender" value="M" /><span>Male</span>
+            <input type="radio" class="form-check-input ms-2 me-1" name="pgender" value="F" /><span>Female</span><br />
+
+            <label>Patient Mobile:</label>
+            <input type="number" placeholder="Enter Your Mobile.." class="form-control" name="pmob" title="require mobile registered.." require /><br />
+            <label>Password:</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter Your Password.." /><br />
+            <label>Doctor Name:</label>
+            <select name="doctor" class="form-select">
+                <option>--- Select Doctor ---</option>
+                <option>Adbc</option>
+                <option>Adbc</option>
+            </select><br />
+            <label>Appointment Date-Time:</label>
+            <input type="datetime-local" id="date" name="apdatetime" class="form-control" /><br />
+            <label>Health Issues:</label>
+            <textarea placeholder="Enter Your Health Issues
+.." class="form-control" name="pissues" required></textarea><br />
+            <button type="submit" class="btn btn-success">Book</button>
+        </form>
+    </div>
+</div>
+<script>
+    // Get current date and time
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Month is 0-based, so add 1
+    const day = String(today.getDate()).padStart(2, '0');
+    const hours = String(today.getHours()).padStart(2, '0');
+    const minutes = String(today.getMinutes()).padStart(2, '0');
+
+    // Format current date and time as YYYY-MM-DDTHH:mm
+    const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+    // Set the min value for the input field
+    document.getElementById('date').setAttribute('min', formattedDateTime);
+</script>
+
