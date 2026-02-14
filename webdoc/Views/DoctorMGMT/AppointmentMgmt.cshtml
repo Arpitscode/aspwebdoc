@@ -3,17 +3,36 @@
     ViewBag.Title = "AppointmentMgmt";
     Layout = "~/Views/Shared/_DoctorLayout.cshtml";
 }
+<script>
+    $(document).ready(function () {
+        $(".tbody").on("click", ".cancel", function () {
+            var id = $(this).attr("id");
+            var n = id.substr(id.lastIndexOf('-') + 1);
+            $.getJSON("/DoctorMGMT/CancelAppointment", { id: n }, function (data) {
+                swal({
+                    title: "Deleted!",
+                    text: data,
+                    icon: "success",
+                    dangerMode: true,
+                }).then(function () {
+                    window.location.href = '/DoctorMGMT/AppointmentSchedules';
+                })
+            })
+        })
+    });
+</script>
 @using webdoc.Models
-<h2>Appointment Histroy</h2>
+<h2>Appointment History</h2>
 <div class="row">
     <table class="table border">
         <thead>
             <tr class="bg-black">
                 <th>Sr.No.</th>
                 <th>Patient Name</th>
-                <th>Patient Email</th>
-                <th>Doctor Name</th>
+                <th>Status</th>
+                <th>Gender</th>
                 <th>Appointment Time</th>
+                <th>Mobile Number</th>
                 <th>Health Issues</th>
                 <th>Apply Date</th>
                 <th></th>
@@ -23,37 +42,44 @@
         </thead>
         <tbody class="tbody">
             @{
-                if (Session["Useremail"] != null)
+                ConnectionManager con = new ConnectionManager();
+                string docem = Session["Useremail"].ToString();
+                string sql = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + docem + "') order by apttime desc";
+                System.Data.DataTable dt = con.getData(sql);
+                for (var i = 0; i < dt.Rows.Count; i++)
                 {
-                    ConnectionManager con = new ConnectionManager();
-                    string docem = Session["Useremail"].ToString();
-                    string sql = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + docem + "')";
-                    System.Data.DataTable dt = con.getData(sql);
-                    for (var i = 0; i < dt.Rows.Count; i++)
-                    {
                     <tr>
                         <td>@(i + 1)</td>
-                        <td>@dt.Rows[i]["pname"]</td>
-                        <td>@dt.Rows[i]["pemail"]</td>
-                        <td>@dt.Rows[i]["docname"]</td>
+                        <td>
+                            @dt.Rows[i]["pname"]
+                        </td>
+                        <td>
+                            @{if (dt.Rows[i]["status"].ToString() == "confrim")
+                                {
+                                    <a class="bg-success h-25 w-25 p-1 rounded-2 text-white">Confrim</a>}
+                                else if (dt.Rows[i]["status"].ToString() == "pending")
+                                {
+                                    <a class="bg-warning h-25 w-25 p-1 rounded-2 text-white">Pending</a>}
+                                else if (dt.Rows[i]["status"].ToString() == "success")
+                                {
+                                    <a class="bg-success h-25 w-25 p-1 rounded-2 text-white">Completed</a>}
+                                else
+                                {<a class="bg-danger h-25 w-25 p-1 rounded-2 text-white">Cancel</a>}
+                            }
+                        </td>
+                        <td>@dt.Rows[i]["pgender"]</td>
                         <td>@dt.Rows[i]["apttime"]</td>
+                        <td>@dt.Rows[i]["pmob"]</td>
                         <td>@dt.Rows[i]["issues"]</td>
                         <td>@dt.Rows[i]["applydate"]</td>
+                       
+                        @*<td><a class="btn btn-danger cancel" id="cn-@dt.Rows[i]["pid"]">Cancel</a></td>*@
                         <td><a class="btn btn-info">Update</a></td>
                         <td><a class="btn btn-secondary">Display</a></td>
                     </tr>
-                    }
                 }
-                else
-                {
-                      Response.Write("<script>alert('LogIn     First');window.location.href='/Home/LogIn';</script>");
-
-                }
-              }
+            }
         </tbody>
     </table>
 </div>
-
-
-
 

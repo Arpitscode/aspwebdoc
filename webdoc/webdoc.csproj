@@ -297,7 +297,6 @@
     <Content Include="Views\Admin\_adminpic.cshtml" />
     <Content Include="Views\Admin\_Adminprofile.cshtml" />
     <Content Include="Views\DoctorMGMT\AppointmentSchedules.cshtml" />
-    <Content Include="Views\DoctorMGMT\AppointmentMgmt.cshtml" />
     <Content Include="Views\DoctorMGMT\PaymentMgmt.cshtml" />
     <Content Include="Views\DoctorMGMT\FeedBack.cshtml" />
     <Content Include="Views\DoctorMGMT\ProfileMgmt.cshtml" />
@@ -312,6 +311,8 @@
     <Content Include="Views\Admin\Feedbacks.cshtml" />
     <Content Include="Views\Home\DoctorRegister.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\DoctorMGMT\Appointment.cshtml" />
+    <Content Include="Views\DoctorMGMT\AppointmentMgmt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

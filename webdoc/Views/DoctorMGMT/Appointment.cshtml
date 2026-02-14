@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "AppointmentSchedules";
+    ViewBag.Title = "Appointment";
     Layout = "~/Views/Shared/_DoctorLayout.cshtml";
 }
 <script>
@@ -8,29 +8,28 @@
         $(".tbody").on("click", ".cancel", function () {
             var id = $(this).attr("id");
             var n = id.substr(id.lastIndexOf('-') + 1);
-            var status = "cancel";
-            $.getJSON("/DoctorMGMT/ChangeStatus", { id: n, status: status }, function (data) {
+            $.getJSON("/DoctorMGMT/CancelAppointment", { id: n }, function (data) {
                 swal({
-                    title: "Cancel!",
+                    title: "Deleted!",
                     text: data,
                     icon: "success",
                     dangerMode: true,
                 }).then(function () {
-                    window.location.href = '/DoctorMGMT/AppointmentSchedules';
+                    window.location.href = '/DoctorMGMT/Appointment';
                 })
             })
-        });
-        $(".tbody").on("click", ".success", function () {
+        })
+        $(".tbody").on("click", ".status", function () {
             var id = $(this).attr("id");
             var n = id.substr(id.lastIndexOf('-') + 1);
-            var status = "success";
+            var status = "confrim";
             $.getJSON("/DoctorMGMT/ChangeStatus", { id: n, status: status}, function (data) {
                 swal({
                     title: "Confrim!",
                     text: data,
-                    icon: "success",
+                    icon: "success"
                 }).then(function () {
-                    window.location.href = '/DoctorMGMT/AppointmentSchedules';
+                    window.location.href = '/DoctorMGMT/Appointment';
                 })
             })
         })
@@ -49,7 +48,7 @@
                 <th>Mobile Number</th>
                 <th>Health Issues</th>
                 <th>Apply Date</th>
-                <th>SucessFully</th>
+                <th>Status</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -59,31 +58,30 @@
             @{
                 ConnectionManager con = new ConnectionManager();
                 string docem = Session["Useremail"].ToString();
-                string sql = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='"+docem+ "')and status='confrim' order by apttime desc";
+                string sql = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + docem + "')and status='pending' order by apttime desc";
                 System.Data.DataTable dt = con.getData(sql);
                 for (var i = 0; i < dt.Rows.Count; i++)
                 {
-                        <tr>
-                            <td>@(i+1)</td>
-                            <td>@dt.Rows[i]["pname"]</td>
-                            <td>@dt.Rows[i]["pgender"]</td>
-                            <td>@dt.Rows[i]["apttime"]</td>
-                            <td>@dt.Rows[i]["pmob"]</td>
-                            <td>@dt.Rows[i]["issues"]</td>
-                            <td>@dt.Rows[i]["applydate"]</td>
-                            <td>
-                                <a class="btn success" id="su-@dt.Rows[i]["pid"]">
-                                    <i class="fa fa-check-square fs-5" style="color:green;"></i>
-                                </a>
-                            </td>
-                            <td><a class="btn btn-danger cancel" id="cn-@dt.Rows[i]["pid"]">Cancel</a></td>
-                            <td><a class="btn btn-info">Update</a></td>
-                            <td><a class="btn btn-secondary">Display</a></td>
-                        </tr>
+                    <tr>
+                        <td>@(i+1)</td>
+                        <td>@dt.Rows[i]["pname"]</td>
+                        <td>@dt.Rows[i]["pgender"]</td>
+                        <td>@dt.Rows[i]["apttime"]</td>
+                        <td>@dt.Rows[i]["pmob"]</td>
+                        <td>@dt.Rows[i]["issues"]</td>
+                        <td>@dt.Rows[i]["applydate"]</td>
+                        <td>
+                            <a class="btn status" id="st-@dt.Rows[i]["pid"]">
+                               <i class="fa fa-check-square fs-5" style="color:green;"></i>
+                            </a>
+                        </td>
+                        <td><a class="btn cancel" id="cn-@dt.Rows[i]["pid"]"><i class="fa fa-trash" style="color:red"></i></a></td>
+                        <td><a class="btn"><i class="fa fa-edit" style="color:blue"></i></a></td>
+                        <td><a class="btn"><i class="fa fa-eye"></i></a></td>
+                    </tr>
                 }
             }
         </tbody>
     </table>
 </div>
-
 

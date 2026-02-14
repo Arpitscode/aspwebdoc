@@ -10,6 +10,7 @@
         <tr class="bg-dark">
             <th>Sr.No</th>
             <th>Patient Name:</th>
+            <th>Status</th>
             <th>Patient Mobile:</th>
             <th>Doctor Name:</th>
             <th>Appointment Time:</th>
@@ -27,18 +28,32 @@ if (dt.Rows.Count > 0)
             {
                 for(var i = 0; i < dt.Rows.Count; i++)
                 {
-                    <tr>
-                        <td>@(i+1)</td>
-                        <td>@dt.Rows[i]["pname"]</td>
-                        <td>@dt.Rows[i]["pmob"]</td>
-                        <td>@dt.Rows[i]["docname"]</td>
-                        <td>@dt.Rows[i]["apttime"]</td>
-                        <td>@dt.Rows[i]["issues"]</td>
-                        <td>@dt.Rows[i]["applydate"]</td>
-                        <td><a class="btn btn-danger">Cancel</a></td>
-                        <td><a class="btn btn-info">Update</a></td>
-                        <td><a class="btn btn-secondary">Display</a></td>
-                    </tr>
+                <tr>
+                    <td>@(i+1)</td>
+                    <td>@dt.Rows[i]["pname"]</td>
+                    <td>
+                        @{if (dt.Rows[i]["status"].ToString() == "confrim")
+                            {
+                                <a class="bg-success h-25 w-25 p-1 rounded-2 text-white">Confrim</a>}
+                            else if (dt.Rows[i]["status"].ToString() == "pending")
+                            {
+                                <a class="bg-warning h-25 w-25 p-1 rounded-2 text-white">Pending</a>}
+                            else if (dt.Rows[i]["status"].ToString() == "success")
+                            {
+                                <a class="bg-success h-25 w-25 p-1 rounded-2 text-white">Completed</a>}
+                            else
+                            {<a class="bg-danger h-25 w-25 p-1 rounded-2 text-white">Cancel</a>}
+                        }
+                    </td>
+                    <td>@dt.Rows[i]["pmob"]</td>
+                    <td>@dt.Rows[i]["docname"]</td>
+                    <td>@dt.Rows[i]["apttime"]</td>
+                    <td>@dt.Rows[i]["issues"]</td>
+                    <td>@dt.Rows[i]["applydate"]</td>
+                    <td><a class="btn btn-danger">Cancel</a></td>
+                    <td><a class="btn btn-info">Update</a></td>
+                    <td><a class="btn btn-secondary">Display</a></td>
+                </tr>
                 }
             }
         }

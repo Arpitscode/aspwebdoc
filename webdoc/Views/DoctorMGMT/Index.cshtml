@@ -11,7 +11,7 @@
             <h1>Appointment</h1>
             <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #11505e;">
                 <div class="s-l">
-                    <h5>Appointment</h5>
+                    <h5>Pending Appointment</h5>
                 </div>
                 <div class="s-r">
                     <h6>
@@ -20,7 +20,7 @@
                             if (Session["Useremail"] != null)
                             {
                                 var em = Session["Useremail"].ToString();
-                                string sql = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + em + "')";
+                                string sql = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + em + "')and status='pending'";
                                 System.Data.DataTable dt = con.getData(sql);
                                 <span>@dt.Rows.Count</span>
                             }
@@ -39,11 +39,12 @@
                 <div class="s-r">
                     <h6>
                         @{
-                                var em3 = Session["Useremail"].ToString();
-                                string sql4 = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + em3 + "')";
-                                System.Data.DataTable dt4 = con.getData(sql4);
-                                <span>@dt4.Rows.Count</span>
+                            var em3 = Session["Useremail"].ToString();
+                            string sql4 = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + em3 + "')";
+                            System.Data.DataTable dt4 = con.getData(sql4);
+                            <span>@dt4.Rows.Count</span>
                         }
+                        <i class="fa fa-calendar-check"></i>
                     </h6>
                 </div>
             </div>
@@ -59,17 +60,17 @@
             <h1>Doctor</h1>
             <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #11505e;">
                 <div class="s-l">
-                    <h5>Doctors</h5>
+                    <h5>Schedule Appointment</h5>
 
                 </div>
                 <div class="s-r">
                     <h6>
                         @{
-                            string sql2 = "select * from Tbl_Doctor";
+                            string sql2 = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + em3 + "')and status='confrim'";
                             System.Data.DataTable dt2 = con.getData(sql2);
                             <span>@dt2.Rows.Count</span>
                         }
-                        <i class="fas fa-key"></i>
+                        <i class="fa fa-history"></i>
                     </h6>
                 </div>
             </div>
@@ -87,7 +88,7 @@
                             System.Data.DataTable dt3 = con.getData(sql3);
                             <span>@dt3.Rows.Count</span>
                         }
-                        <i class="fas fa-comment"></i>
+                        <i class="fa fa-comment"></i>
                     </h6>
                 </div>
             </div>

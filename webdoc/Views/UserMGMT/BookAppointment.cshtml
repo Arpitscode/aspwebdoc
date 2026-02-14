@@ -54,13 +54,14 @@
                 ConnectionManager con = new ConnectionManager();
                 string sql = "select docname from Tbl_Doctor";
                 System.Data.DataTable dt = con.getData(sql);
-if (dt.Rows.Count > 0)
-            {
-                for(var i = 0; i < dt.Rows.Count; i++)
+                if (dt.Rows.Count > 0)
                 {
+                    
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
                     <option>@dt.Rows[i]["docname"]</option>
+                    }
                 }
-            }
             }
         </select><br />
         <label>Appointment Date-Time:</label>

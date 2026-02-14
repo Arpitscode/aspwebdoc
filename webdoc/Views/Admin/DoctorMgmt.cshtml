@@ -10,6 +10,10 @@
         <tr class="bg-dark">
             <th>Sr.No</th>
             <th>Doctor Name:</th>
+            <th>Pending Appointment</th>
+            <th>Schdules Appointment</th>
+            <th>Cancel Appointment</th>
+            <th>Total Appointment</th>
             <th>Doctor Specialization:</th>
             <th>Doctor Email:</th>
             @*<th>Doctor Gender</th>*@
@@ -28,17 +32,45 @@
                 {
                     for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                    <tr>
-                        <td>@(i + 1)</td>
-                        <td>@dt.Rows[i]["docname"]</td>
-                        <td>@dt.Rows[i]["docspecial"]</td>
-                        <td>@dt.Rows[i]["docemail"]</td>
-                        @*<td></td>*@
-                        <td>@dt.Rows[i]["regdate"]</td>
-                        <td><a class="btn btn-danger">Delete</a></td>
-                        <td><a class="btn btn-info">Update</a></td>
-                        <td><a class="btn btn-secondary">Display</a></td>
-                    </tr>
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@dt.Rows[i]["docname"]</td>
+                    <td>
+                        @{
+                            string sql2 = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + dt.Rows[i]["docemail"] + "') and status='pending'";
+                            System.Data.DataTable dt2 = con.getData(sql2);
+                            <span>@dt2.Rows.Count</span>
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sql3 = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + dt.Rows[i]["docemail"] + "') and status='confrim'";
+                            System.Data.DataTable dt3 = con.getData(sql3);
+                            <span>@dt3.Rows.Count</span>
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sql4 = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + dt.Rows[i]["docemail"] + "') and status='success'";
+                            System.Data.DataTable dt4 = con.getData(sql4);
+                            <span>@dt4.Rows.Count</span>
+                        }
+                    </td>
+                    <td>
+                        @{
+                            string sql5 = "select * from Tbl_Appointment where docname=(select docname from Tbl_Doctor where docemail='" + dt.Rows[i]["docemail"] + "')";
+                            System.Data.DataTable dt5 = con.getData(sql5);
+                            <span>@dt5.Rows.Count</span>
+                        }
+                    </td>
+                    <td>@dt.Rows[i]["docspecial"]</td>
+                    <td>@dt.Rows[i]["docemail"]</td>
+                    @*<td></td>*@
+                    <td>@dt.Rows[i]["regdate"]</td>
+                    <td><a class="btn btn-danger">Delete</a></td>
+                    <td><a class="btn btn-info">Update</a></td>
+                    <td><a class="btn btn-secondary">Display</a></td>
+                </tr>
                         }
                     }
                 }

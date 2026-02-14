@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using webdoc.Models;
 
 namespace webdoc.Controllers
@@ -13,6 +14,17 @@ namespace webdoc.Controllers
         ConnectionManager con=new ConnectionManager();
         // GET: DoctorMGMT
         public ActionResult Index()
+        {
+            if (Session["Useremail"] != null)
+            {
+            }
+            else
+            {
+                Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
+            }
+            return View();
+        }
+        public ActionResult Appointment()
         {
             if (Session["Useremail"] != null)
             {
@@ -36,14 +48,46 @@ namespace webdoc.Controllers
         }
         public ActionResult AppointmentMgmt()
         {
-            if (Session["Useremail"] != null)
-            {
-            }
-            else
+            if (Session["Useremail"]== null || Session["Useremail"] == " ")
             {
                 Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
             }
-            return View();
+            else
+            {
+                return View();
+            }
+            return null;
+        }
+        public JsonResult ChangeStatus(int id,string status)
+        {
+            try
+            {
+                string sql = "update Tbl_Appointment set status='"+status+"' where pid=" + id;
+                if (con.crud(sql))
+                {
+                    if (status == "success")
+                    {
+                        return Json("Appointment Succesfully Completed", JsonRequestBehavior.AllowGet);
+                    }
+                    if (status=="cancel")
+                    {
+                        return Json("Appointment Succesfully Canceled", JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json("Appointment Confrimed Succesfully", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return Json("Appointment not Confrimed Unsuccesfully", JsonRequestBehavior.AllowGet);
+
+                }
+            }
+            catch
+            {
+                return Json("Appointment not Confrimed Unsuccesfully", JsonRequestBehavior.AllowGet);
+            }
         }
         public JsonResult CancelAppointment(int id)
         {

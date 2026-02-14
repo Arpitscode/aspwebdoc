@@ -19,7 +19,8 @@
         $(".tbody").on("click", ".cancel", function () {
             var id = $(this).attr("id");
             var n = id.substr(id.lastIndexOf('-') + 1);
-            $.getJSON("/UserMGMT/CancelAppointment", { id: n }, function (data) {
+            var status = "cancel";
+            $.getJSON("/UserMGMT/ChangeStatus", { id: n,, status: status }, function (data) {
                 swal({
                     title: "Deleted!",
                     text:data,
@@ -40,6 +41,7 @@
             <tr class="bg-black">
                 <th>Sr.No.</th>
                 <th>Patient Name</th>
+                <th>Status</th>
                 <th>Gender</th>
                 <th>Doctor Name</th>
                 <th>Appointment Time</th>
@@ -63,6 +65,20 @@
                         <tr>
                             <td>@(i + 1)</td>
                             <td>@dt.Rows[i]["pname"]</td>
+                            <td>
+                                @{if (dt.Rows[i]["status"].ToString() == "confrim")
+                                    {
+                                        <a class="bg-success h-25 w-25 p-1 rounded-2 text-white">Confrim</a>}
+                                    else if (dt.Rows[i]["status"].ToString() == "pending")
+                                    {
+                                        <a class="bg-warning h-25 w-25 p-1 rounded-2 text-white">Pending</a>}
+                                    else if (dt.Rows[i]["status"].ToString() == "success")
+                                    {
+                                        <a class="bg-success h-25 w-25 p-1 rounded-2 text-white">Completed</a>}
+                                    else
+                                    {<a class="bg-danger h-25 w-25 p-1 rounded-2 text-white">Cancel</a>}
+                                }
+                            </td>
                             <td>@dt.Rows[i]["pgender"]</td>
                             <td>@dt.Rows[i]["docname"]</td>
                             <td>@dt.Rows[i]["apttime"]</td>

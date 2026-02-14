@@ -60,7 +60,7 @@ namespace webdoc.Controllers
                 System.Data.DataTable tba = con.getData(sql);
                 if (tba.Rows.Count == 0)
                 {
-                    sql = "insert into Tbl_Appointment values('" + n + "','" + em + "','" + mob + "','" + gen + "','" + doc + "','" + pt + "','" + iss + "','" + DateTime.Now.ToShortDateString() + "')";
+                    sql = "insert into Tbl_Appointment values('" + n + "','" + em + "','" + mob + "','" + gen + "','" + doc + "','" + pt + "','" + iss + "','" + DateTime.Now.ToShortDateString() + "',default)";
                     if (con.crud(sql))
                     {
                         BookingEmailSender emailSender = new BookingEmailSender();
@@ -102,6 +102,37 @@ namespace webdoc.Controllers
                 Response.Write("<script>alert('LogIn First');window.location.href='/Home/LogIn';</script>");
             }
             return View();
+        }
+        public JsonResult ChangeStatus(int id, string status)
+        {
+            try
+            {
+                string sql = "update Tbl_Appointment set status='" + status + "' where pid=" + id;
+                if (con.crud(sql))
+                {
+                    if (status == "success")
+                    {
+                        return Json("Appointment Succesfully Completed", JsonRequestBehavior.AllowGet);
+                    }
+                    if (status == "cancel")
+                    {
+                        return Json("Appointment Succesfully Canceled", JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json("Appointment Confrimed Succesfully", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return Json("Appointment not Confrimed Unsuccesfully", JsonRequestBehavior.AllowGet);
+
+                }
+            }
+            catch
+            {
+                return Json("Appointment not Confrimed Unsuccesfully", JsonRequestBehavior.AllowGet);
+            }
         }
         public JsonResult CancelAppointment(int id)
         {

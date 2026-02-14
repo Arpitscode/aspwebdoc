@@ -4,6 +4,7 @@
     ViewBag.Title = "UserIndex";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+
 @using webdoc.Models
 <div class="row p-4">
     <h1 class="text-center">@ViewBag.msg</h1>
@@ -12,7 +13,7 @@
             <h1>Appointment</h1>
             <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #11505e;">
                 <div class="s-l">
-                    <h5>Appointment</h5>
+                    <h5>Pending Appointments</h5>
                 </div>
                 <div class="s-r">
                     <h6>
@@ -21,7 +22,7 @@
                             if (Session["Usermob"] != null)
                             {
                                 var mobile = Session["Usermob"].ToString();
-                                string sql = "select * from Tbl_Appointment where pmob=" + mobile;
+                                string sql = "select * from Tbl_Appointment where pmob='" + mobile+"' and status='pending'";
                                 System.Data.DataTable dt = con.getData(sql);
                             <span>@dt.Rows.Count</span>
                                 }
@@ -32,10 +33,20 @@
             </div>
             <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #6B3A6C;">
                 <div class="s-l">
-                    <h5>Doctors</h5>
+                    <h5>Total Appointments</h5>
                     </div>
                     <div class="s-r">
                         <h6>
+                            @{
+                                if (Session["Usermob"] != null)
+                                {
+                                    var mobile = Session["Usermob"].ToString();
+                                    string sql = "select * from Tbl_Appointment where pmob=" + mobile;
+                                    System.Data.DataTable dt = con.getData(sql);
+                                    <span>@dt.Rows.Count</span>
+                                }
+                            }
+                            <i class="fa fa-th"></i>
                         </h6>
                     </div>
                 </div>
@@ -68,10 +79,23 @@
 
             <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between" style="background-color: #6B3A6C;">
                 <div class="s-l">
-                    <h5>Doctors</h5>
+                    <h5>Cancel</h5>
 
                 </div>
-
+                <div class="s-r">
+                    <h6>
+                        @{
+                            if (Session["Usermob"] != null)
+                            {
+                                var mobile = Session["Usermob"].ToString();
+                                string sql = "select * from Tbl_Appointment where pmob='" + mobile + "' and status='cancel'";
+                                System.Data.DataTable dt = con.getData(sql);
+                                <span>@dt.Rows.Count</span>
+                            }
+                        }
+                        <i class="fa fa-calendar-times "></i>
+                    </h6>
+                </div>
             </div>
         </center>
 
